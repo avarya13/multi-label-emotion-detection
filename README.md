@@ -182,6 +182,19 @@ uv run python commands.py export onnx model=rubert_tiny2
 uv run python commands.py export trt model=rubert_tiny2
 ```
 
+### Performance Measurement
+
+```bash
+docker compose run perf-analyzer \
+      -m cointegrated-rubert-tiny2 \
+      -u triton:8000 \
+      -i http \
+      -b 1 \
+      -t 30 \
+      --shape input_ids:1x128 \
+      --shape attention_mask:1x128
+```
+
 ### Inference
 
 #### Checkpoint Inference
@@ -190,7 +203,7 @@ uv run python commands.py export trt model=rubert_tiny2
 uv run python commands.py infer ckpt model=rubert_tiny2 '+text="Сегодня отличный день!"'
 ```
 
-#### Inference using Triton Inference Server
+#### Prediction using Triton Inference Server
 
 **Triton requirements:**
 
@@ -440,3 +453,15 @@ The result of the system is a JSON object generated on the client side, which co
 - `authors` — metrics computed using the official evaluation script from the original repository of the dataset's authors
 
 2. For Label Ranking Loss, lower value is better.
+
+### Model Performance Comparison
+
+| Model                       | Avg Latency (ms) | Throughput (infer/sec) | GPU Usage (Mb) |
+| --------------------------- | ---------------- | ---------------------- | -------------- |
+| ruBERT-tiny2                | 8.5              | 3528.3                 | 284            |
+| ruBERT-tiny2                | 8.5              | 3537.8                 | 358            |
+| ruBERT-base                 | 93.8             | 318.9                  | 898            |
+| ruBERT-cased-conversational | 92.7             | 322.8                  | 898            |
+| ruRoBERTa-large             | 275.5            | 108.0                  | 1796           |
+
+Measurements were performed with batch size = 1 and concurrency = 30.
