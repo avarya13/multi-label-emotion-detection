@@ -182,11 +182,15 @@ uv run python commands.py export onnx model=rubert_tiny2
 uv run python commands.py export trt model=rubert_tiny2
 ```
 
-## Inference
+### Inference
 
-### Single Text Prediction
+#### Checkpoint Inference
 
-#### Prediction using Triton Inference Server
+```bash
+uv run python commands.py infer ckpt model=rubert_tiny2 '+text="Сегодня отличный день!"'
+```
+
+#### Inference using Triton Inference Server
 
 **Triton requirements:**
 
@@ -210,12 +214,6 @@ Run inference:
 uv run python commands.py infer triton model=rubert_tiny2 '+text="Сегодня отличный день!"'
 ```
 
-#### Prediction without Triton Inference Server
-
-```bash
-uv run python commands.py infer ckpt model=rubert_tiny2 '+text="Сегодня отличный день!"'
-```
-
 ---
 
 ## Detailed Project Description
@@ -227,7 +225,7 @@ The project solves the problem of prototyping a service for evaluating the emoti
 #### Input and Output Data Format
 
 The input to the system is a text message from the user, presented as a string.
-Before accessing the model, the input text is processed on the client side using the HuggingFace tokenizer. As a result, a set of fixed-length numeric tensors is formed, which are then transmitted to the Triton Inference Server via the HTTP API in the numpy array format, serialized by the Triton client.
+Before accessing the model, the input text is processed on the client side using the HuggingFace tokenizer. The maximum sequence length is limited to 128 tokens after tokenization. Longer texts are truncated, while shorter texts are padded to a fixed length. As a result, a set of fixed-length numeric tensors is formed, which are then transmitted to the Triton Inference Server via the HTTP API in the numpy array format, serialized by the Triton client.
 
 The request to the inference server consists of two parts: a JSON description of the input and output tensors and binary tensor data. The JSON structure of the request looks like this:
 
@@ -298,10 +296,21 @@ The complete reproducibility of the experiment is ensured by fixing a random see
 #### Data
 
 For prototyping, the RuIzardEmotions public dataset (2023) is used, which is a high-quality translation of the English-language corpus of go-emotions and other sources. The dataset is distributed under the Apache license-2.0 and is available on [Hugging Face](https://huggingface.co/datasets/Djacon/ru-izard-emotions).
-The dataset contains 30,000 comments from Reddit, translated into Russian using the DeepL system with subsequent post-processing. Each comment is labeled in ten categories: _joy, sadness, anger, enthusiasm, surprise, disgust, fear, guilt, shame, neutral_. It is acceptable to have multiple emotions in one example (multi-label).
-The dataset size is 4.06 MB, and the total number of rows is 24,891.
+The dataset contains 24,891 comments from Reddit, translated into Russian using the DeepL system with subsequent post-processing. Each comment is labeled in ten categories: _joy, sadness, anger, enthusiasm, surprise, disgust, fear, guilt, shame, neutral_. It is acceptable to have multiple emotions in one example (multi-label). The dataset size is 4.06 MB.
 The RuIzardEmotions dataset already contains a fixed breakdown into training, validation, and test samples in the proportions of 24,000, 3,000, and 3,000 examples, respectively.
-A key feature of the dataset is a strong class imbalance. In particular, texts corresponding to the _guilty_ and _shame_ classes make up less than 5% of all texts.
+A key feature of the dataset is a noticeable class imbalance. The distribution of emotion labels is presented in the table below.
+| Emotion Label | Number of Samples | Percentage of Dataset |
+|---|---:|---:|
+| neutral | 6775 | 27.22% |
+| anger | 6386 | 25.66% |
+| joy | 5929 | 23.82% |
+| sadness | 5260 | 21.13% |
+| enthusiasm | 4216 | 16.94% |
+| surprise | 2232 | 8.97% |
+| disgust | 2224 | 8.94% |
+| fear | 1996 | 8.02% |
+| shame | 1115 | 4.48% |
+| guilt | 1112 | 4.47% |
 
 ### Modeling
 
