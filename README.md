@@ -309,8 +309,10 @@ The complete reproducibility of the experiment is ensured by fixing a random see
 #### Data
 
 For prototyping, the RuIzardEmotions public dataset (2023) is used, which is a high-quality translation of the English-language corpus of go-emotions and other sources. The dataset is distributed under the Apache license-2.0 and is available on [Hugging Face](https://huggingface.co/datasets/Djacon/ru-izard-emotions).
+
 The dataset contains 24,891 comments from Reddit, translated into Russian using the DeepL system with subsequent post-processing. Each comment is labeled in ten categories: _joy, sadness, anger, enthusiasm, surprise, disgust, fear, guilt, shame, neutral_. It is acceptable to have multiple emotions in one example (multi-label). The dataset size is 4.06 MB.
-The RuIzardEmotions dataset already contains a fixed breakdown into training, validation, and test samples in the proportions of 24,000, 3,000, and 3,000 examples, respectively.
+
+The RuIzardEmotions dataset already contains a fixed breakdown into training, validation, and test samples in the proportions of 20.2k (81\%), 2,24k (9\%), and 2,49k (10\%) examples, respectively.
 A key feature of the dataset is a noticeable class imbalance. The distribution of emotion labels is presented in the table below.
 | Emotion Label | Number of Samples | Percentage of Dataset |
 |---|---:|---:|
