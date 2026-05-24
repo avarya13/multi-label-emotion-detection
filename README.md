@@ -182,19 +182,6 @@ uv run python commands.py export onnx model=rubert_tiny2
 uv run python commands.py export trt model=rubert_tiny2
 ```
 
-### Performance Measurement
-
-```bash
-docker compose run perf-analyzer \
-      -m cointegrated-rubert-tiny2 \
-      -u triton:8000 \
-      -i http \
-      -b 1 \
-      -t 30 \
-      --shape input_ids:1x128 \
-      --shape attention_mask:1x128
-```
-
 ### Inference
 
 #### Checkpoint Inference
@@ -225,6 +212,19 @@ Run inference:
 
 ```bash
 uv run python commands.py infer triton model=rubert_tiny2 '+text="Сегодня отличный день!"'
+```
+
+### Performance Measurement
+
+```bash
+docker compose run perf-analyzer \
+      -m cointegrated-rubert-tiny2 \
+      -u triton:8000 \
+      -i http \
+      -b 1 \
+      -t 30 \
+      --shape input_ids:1x128 \
+      --shape attention_mask:1x128
 ```
 
 ---
