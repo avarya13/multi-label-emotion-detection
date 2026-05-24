@@ -182,15 +182,15 @@ uv run python commands.py export onnx model=rubert_tiny2
 uv run python commands.py export trt model=rubert_tiny2
 ```
 
-### Inference
+## Inference
 
-#### Checkpoint Inference
+### Checkpoint Inference
 
 ```bash
 uv run python commands.py infer ckpt model=rubert_tiny2 '+text="Сегодня отличный день!"'
 ```
 
-#### Prediction using Triton Inference Server
+### Prediction using Triton Inference Server
 
 **Triton requirements:**
 
@@ -214,7 +214,7 @@ Run inference:
 uv run python commands.py infer triton model=rubert_tiny2 '+text="Сегодня отличный день!"'
 ```
 
-### Performance Measurement
+## Performance Measurement
 
 ```bash
 docker compose run perf-analyzer \
