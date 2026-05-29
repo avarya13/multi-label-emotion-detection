@@ -10,7 +10,6 @@ from torchmetrics.classification import (
     MultilabelRankingLoss,
 )
 from transformers import AutoModelForSequenceClassification
-from utils.dvc_pull import dvc_pull
 
 from data.emotion_datamodule import EmotionDataModule
 
@@ -18,8 +17,6 @@ from .metrics import compute_f1_macro, compute_f1_micro
 
 
 def run_eval(cfg: DictConfig):
-    dvc_pull(remote=cfg.data.remote_name, target=cfg.data.dvc_target)
-
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     print(f"Using device: {device}")
