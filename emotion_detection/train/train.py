@@ -4,14 +4,13 @@ from datetime import datetime
 from pathlib import Path
 
 import lightning as L
-import mlflow.pytorch
 from eval.plot_metrics import save_all_plots
 from lightning.pytorch.callbacks import LearningRateMonitor, ModelCheckpoint
 from lightning.pytorch.loggers import CSVLogger
 from omegaconf import DictConfig
 from transformers import AutoTokenizer
-from utils.dvc_pull import dvc_pull
 
+import mlflow.pytorch
 from data.emotion_datamodule import EmotionDataModule
 
 from .multilabel_classifier import MultiLabelClassifier
@@ -20,8 +19,6 @@ from .multilabel_classifier import MultiLabelClassifier
 def run_train(cfg: DictConfig):
     L.seed_everything(cfg.seed)
     timestamp = datetime.now().strftime("%Y%m%d-%H%M")
-
-    dvc_pull(remote=cfg.data.remote_name, target=cfg.data.dvc_target)
 
     dm = EmotionDataModule(
         data_dir=cfg.data.data_dir,
