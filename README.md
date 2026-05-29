@@ -92,7 +92,7 @@ cd multi-label-emotion-detection/emotion_detection
 ### Create Environment and Install Dependencies
 
 ```bash
-uv sync
+uv sync --group dev
 ```
 
 ### Quality Check
@@ -113,22 +113,17 @@ uv run pre-commit run -a
 
 ### Data Download
 
-Dataset and fine-tuned models is managed using DVC.
-To download data and models:
+Dataset and fine-tuned models is managed using DVC, using _local storage_.
 
-```bash
-uv run dvc pull
-```
-
-The data will be stored in the `data` directory and the models will be in the `emotion_detection/models`, `emotion_detection/onnx_models` and `emotion_detection/tensorrt_models` directories.
-
-If necessary, you can download the dataset directly from Hugging Face:
+You can download the dataset directly from Hugging Face:
 
 ```bash
 uv run python commands.py download
 ```
 
 The dataset will be stored in the `/data` directory.
+
+Model artifacts can be downloaded [here](https://drive.google.com/drive/folders/1gZmI7gFWYuVwk_AbbH75ZqfT_eRv9grB?usp=sharing).
 
 ### Experiment Tracking
 
@@ -207,7 +202,7 @@ uv run python commands.py prepare-triton
 Launch Triton Inference Server:
 
 ```bash
-docker compose -f triton_server/docker-compose.yml up
+docker compose -f triton_server/docker-compose.yml up -d
 ```
 
 Run inference:
