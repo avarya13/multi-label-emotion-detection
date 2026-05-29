@@ -162,7 +162,7 @@ During training, hyperparameters, losses, and evaluation metrics are logged to t
 uv run python commands.py eval model=ruroberta_large
 ```
 
-To reproduce the evaluation procedure used in the original RuIzardEmotions repository, you can enable Softmax activation::
+To reproduce the evaluation procedure used in the original RuIzardEmotions repository, you can enable Softmax activation:
 
 ```bash
 uv run python commands.py eval model=ruroberta_large model.activation=softmax
@@ -425,16 +425,16 @@ The result of the system is a JSON object generated on the client side, which co
 
 ### Results with SoftMax activation
 
-| Metric                  | ruBERT-tiny2 (authors' code) | ruBERT-tiny2 (reported by authors) | ruBERT-base | ruBERT-cased-conv | ruRoBERTa-large |
-| ----------------------- | ---------------------------- | ---------------------------------- | ----------- | ----------------- | --------------- |
-| $F_1^{macro}$ (torch)   | 0.3343                       | 0.3408                             | 0.3991      | 0.3984            | **0.4103**      |
-| $F_1^{micro}$ (torch)   | 0.4464                       | 0.4518                             | 0.4931      | 0.4876            | **0.5022**      |
-| $F_1^{macro}$ (authors) | 0.6254                       | 0.6277                             | 0.6578      | 0.6570            | **0.6643**      |
-| $F_1^{micro}$ (authors) | 0.8628                       | 0.8606                             | 0.8651      | 0.8638            | **0.8682**      |
-| Precision               | 0.4867                       | 0.4683                             | 0.6254      | 0.6741            | **0.7110**      |
-| Recall                  | 0.2607                       | 0.2725                             | 0.3178      | 0.3188            | **0.3288**      |
-| ROC-AUC                 | **0.8009**                   | 0.7979                             | 0.7792      | 0.7732            | 0.7815          |
-| Label Ranking Loss      | **0.1357**                   | 0.1451                             | 0.1464      | 0.1536            | 0.1450          |
+| Metric             | ruBERT-tiny2 (authors' code) | ruBERT-tiny2 (reported by authors) | ruBERT-base | ruBERT-cased-conv | ruRoBERTa-large |
+| ------------------ | ---------------------------- | ---------------------------------- | ----------- | ----------------- | --------------- |
+| F1-macro (torch)   | 0.3343                       | 0.3408                             | 0.3991      | 0.3984            | **0.4103**      |
+| F1-micro (torch)   | 0.4464                       | 0.4518                             | 0.4931      | 0.4876            | **0.5022**      |
+| F1-macro (authors) | 0.6254                       | 0.6277                             | 0.6578      | 0.6570            | **0.6643**      |
+| F1-micro (authors) | 0.8628                       | 0.8606                             | 0.8651      | 0.8638            | **0.8682**      |
+| Precision          | 0.4867                       | 0.4683                             | 0.6254      | 0.6741            | **0.7110**      |
+| Recall             | 0.2607                       | 0.2725                             | 0.3178      | 0.3188            | **0.3288**      |
+| ROC-AUC            | **0.8009**                   | 0.7979                             | 0.7792      | 0.7732            | 0.7815          |
+| Label Ranking Loss | **0.1357**                   | 0.1451                             | 0.1464      | 0.1536            | 0.1450          |
 
 ### Results with Sigmoid activation
 
