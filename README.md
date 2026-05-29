@@ -69,7 +69,6 @@ multi-label-emotion-detection/
 │   │   ├── download_data.py          # Dataset download script
 │
 │   ├── utils/                        # Helper utilities
-│   │   ├── dvc_pull.py               # DVC dataset/model pull
 │   │   ├── model_paths.py            # Path helpers
 │   │   ├── hydra_utils.py            # Hydra helpers
 │
